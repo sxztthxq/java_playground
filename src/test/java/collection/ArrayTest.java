@@ -59,4 +59,32 @@ public class ArrayTest {
 		Assert.assertEquals(objects, sorted_objects);
 	}
 
+	@Test
+	public void TestCopyOf() {
+		Integer[] expected = new Integer[10];
+		expected[0] = 3;
+		expected[1] = 2;
+		expected[2] = 1;
+		expected[3] = 4;
+		Assert.assertEquals(java.util.Arrays.copyOf(objects, 10), expected);
+		Assert.assertEquals(Arrays.copyOf(objects, 10), expected);
+	}
+
+	@Test
+	public void TestCopyOfRange() {
+		Integer[] expected = new Integer[2];
+		expected[0] = 2;
+		expected[1] = 1;
+		Assert.assertEquals(java.util.Arrays.copyOfRange(objects, 1, 3), expected);
+		Assert.assertEquals(Arrays.copyOfRange(objects, 1, 3), expected);
+	}
+
+
+	@Test
+	public void TestSystemArrayCopy() {
+		Integer[] expected = new Integer[10];
+		System.arraycopy(objects, 0, expected, 0, 4);
+		System.out.println(expected[0]);
+	}
+
 }

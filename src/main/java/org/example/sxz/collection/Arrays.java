@@ -2,15 +2,43 @@ package org.example.sxz.collection;
 
 import java.util.Comparator;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 public class Arrays {
 
-
-	// todo
 	public static Object[] copyOf(Object[] objects, int size) {
-		return objects;
+		Object[] copy = new Object[size];
+		for (int i = 0; i < objects.length; i++) {
+			copy[i] = objects[i];
+		}
+		return copy;
 	}
 
-	////排序算法
+	public static <T> T[] copyOfRange(T[] original, int from, int to) {
+		T[] copy = (T[]) new Object[to - from];
+		int index = 0;
+		for (int i = from; i < to; i++) {
+			copy[index++] = original[i];
+		}
+		return copy;
+	}
+
+	/*
+	从指定位置开始，将指定源数组中的一个数组复制到目标数组的指定位置。
+	从 src 所引用的源数组到 dest 所引用的目标数组的数组组件的子序列被复制。
+	复制的组件数等于长度参数。源数组中位于 srcPos 至 srcPos+length-1 位置的组件将分别复制到目标数组的 destPos 至 destPos+length-1 位置。
+	如果 src 和 dest 参数指向的是同一个数组对象，那么复制过程就如同先将 srcPos 至 srcPos+length-1
+	位置上的分量复制到一个有长度分量的临时数组，然后将临时数组的内容复制到目标数组的 destPos 至 destPos+length-1 位置。
+	*/
+	public static void SystemArraycopy(Object src, int srcPos,
+									   Object dest, int destPos,
+									   int length) {
+		throw new NotImplementedException();
+	}
+
+
+	//排序算法
+	// todo
 	public static <E> void binarySort(Object[] objects, Comparator<? super E> c) {
 		if (objects.length == 0 || objects.length == 1) {
 			return;
@@ -20,31 +48,6 @@ public class Arrays {
 				Object temp = objects[1];
 				objects[1] = objects[0];
 				objects[0] = temp;
-			}
-			// 从第三个元素开始进行二分排序
-			for (int i = 2; i < objects.length; i++) {
-				Object cur = objects[i];
-				int start = 0;
-				int end = i - 1;
-				while (end > start) {
-					int middle = (start + end) / 2;
-					if (c.compare((E) objects[middle], (E) objects[i]) < 0) {
-						end = middle;
-					} else {
-						start = middle + 1;
-					}
-				}
-				for (int j = i - 1; j >= start; j--) {
-					//从i-1到left依次向后移动一位,等待temp值插入
-					objects[j + 1] = objects[j];
-				}
-				objects[start] = cur;
-
-
-//				int copyLength = i - start;
-//				// todo:自定义实现
-//				System.arraycopy(objects, start, objects, start + 1, copyLength);
-//				objects[start] = cur;
 			}
 		}
 	}
