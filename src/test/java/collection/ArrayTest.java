@@ -33,12 +33,20 @@ public class ArrayTest {
 	}
 
 	@Test
+	public void TestBinarySearchPartitionIndex(){
+		int test1 = 0;
+		Assert.assertEquals(Arrays.binarySearchPartitionIndex(sorted_objects, 0, 3, test1), 0);
+		int test2 = 1;
+		Assert.assertEquals(Arrays.binarySearchPartitionIndex(sorted_objects, 0, 3, test2), 1);
+		int test3 = 3;
+		Assert.assertEquals(Arrays.binarySearchPartitionIndex(sorted_objects, 0, 3, test3), 3);
+	}
+
+
+	@Test
 	public void TestBinarySort() {
 		Arrays.binarySort(objects, comparator);
-		System.out.println(objects[0]);
-		System.out.println(objects[1]);
-		System.out.println(objects[2]);
-		System.out.println(objects[3]);
+		Assert.assertEquals(objects, sorted_objects);
 	}
 
 	@Test

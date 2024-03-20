@@ -23,6 +23,17 @@ public class Arrays {
 		return copy;
 	}
 
+	private static void checkRangeLegal(Object[] objects, int start, int end) {
+		if (start < 0 || end < 0) {
+			throw new ArrayIndexOutOfBoundsException();
+		} else if (start > objects.length || end > objects.length) {
+			throw new ArrayIndexOutOfBoundsException();
+		} else if (start > end) {
+			throw new ArrayIndexOutOfBoundsException();
+		}
+	}
+
+
 	/*
 	从指定位置开始，将指定源数组中的一个数组复制到目标数组的指定位置。
 	从 src 所引用的源数组到 dest 所引用的目标数组的数组组件的子序列被复制。
@@ -30,27 +41,43 @@ public class Arrays {
 	如果 src 和 dest 参数指向的是同一个数组对象，那么复制过程就如同先将 srcPos 至 srcPos+length-1
 	位置上的分量复制到一个有长度分量的临时数组，然后将临时数组的内容复制到目标数组的 destPos 至 destPos+length-1 位置。
 	*/
-	public static void SystemArraycopy(Object src, int srcPos,
-									   Object dest, int destPos,
-									   int length) {
+	public static void SystemArraycopy(Object src, int srcPos, Object dest, int destPos, int length) {
 		throw new NotImplementedException();
 	}
 
 
 	//排序算法
-	// todo
-	public static <E> void binarySort(Object[] objects, Comparator<? super E> c) {
+	public static <E> void binarySort(Integer[] objects, Comparator<? super E> c) {
 		if (objects.length == 0 || objects.length == 1) {
 			return;
 		} else {
-			// 排序第一、二个元素
-			if (c.compare((E) objects[0], (E) objects[1]) < 0) {
-				Object temp = objects[1];
-				objects[1] = objects[0];
-				objects[0] = temp;
+			for (int i = 1; i < objects.length; i++) {
+				int index = binarySearchPartitionIndex(objects, 0, i - 1, objects[i]);
+				Integer temp = objects[i];
+				System.arraycopy(objects, index, objects, index + 1, i - index);
+				objects[index] = temp;
 			}
 		}
 	}
+
+	public static <E> int binarySearchPartitionIndex(Integer[] objects, int start, int end, int target) {
+		checkRangeLegal(objects, start, end);
+		if (end == start || end == start + 1) {
+			if (target >= objects[end]) {
+				return end + 1;
+			} else if (target >= objects[start] && target < objects[end]) {
+				return start + 1;
+			} else
+				return start;
+		}
+		int middle = (start + end) / 2;
+		if (target >= objects[middle]) {
+			return binarySearchPartitionIndex(objects, middle, end, target);
+		} else {
+			return binarySearchPartitionIndex(objects, start, middle, target);
+		}
+	}
+
 
 	public static <E> void quickSort(Object[] objects, Comparator<? super E> c) {
 		rangeQuickSort(objects, 0, objects.length, c);

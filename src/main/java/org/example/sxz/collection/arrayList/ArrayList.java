@@ -1,6 +1,7 @@
 package org.example.sxz.collection.arrayList;
 
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.example.sxz.collection.Arrays;
 
 import java.util.*;
@@ -168,8 +169,8 @@ public class ArrayList<E> extends AbstractList<E> {
 
 	@Override
 	public void sort(Comparator<? super E> c) {
-		Arrays.binarySort(objects, c);
-
+//		Arrays.binarySort(objects, c);
+		throw new NotImplementedException();
 	}
 
 	@Override
