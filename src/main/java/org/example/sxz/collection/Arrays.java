@@ -61,6 +61,9 @@ public class Arrays {
 	}
 
 	public static <E> int binarySearchPartitionIndex(Integer[] objects, int start, int end, int target) {
+		if (checkObjectsAllNull(objects, start, end)) {
+			return 0;
+		}
 		checkRangeLegal(objects, start, end);
 		if (end == start || end == start + 1) {
 			if (target >= objects[end]) {
@@ -76,6 +79,15 @@ public class Arrays {
 		} else {
 			return binarySearchPartitionIndex(objects, start, middle, target);
 		}
+	}
+
+	private static boolean checkObjectsAllNull(Integer[] objects, int start, int end) {
+		for (int i = start; i <= end; i++) {
+			if (objects[i] != null) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 
